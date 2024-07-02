@@ -1,0 +1,19 @@
+import json
+
+def json_to_csv(input_file, output_file):
+    try:
+        with open(input_file, 'r') as f:
+            data = json.load(f)
+
+        headers = ','.join(data[0].keys())  # Assuming all objects in data have the same keys
+        lines = [','.join(map(str, obj.values())) for obj in data]
+
+        with open(output_file, 'w') as f:
+            f.write(headers + '\n')
+            f.write('\n'.join(lines) + '\n')
+
+    except Exception as ex:
+        print(f'Error: {str(ex)}')
+
+if __name__ == '__main__':
+    json_to_csv('input.json', 'output.csv')
